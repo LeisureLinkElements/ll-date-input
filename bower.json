@@ -1,17 +1,17 @@
 {
-  "name": "ll-time-input",
+  "name": "ll-date-input",
   "version": "1.0.0",
   "authors": [
     "Charles Koehl <ckoehl@leisurelink.com>"
   ],
-  "description": "A clickable, read-only text input that launches ll-time-picker to set its display and iso values.",
+  "description": "A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its custom data-data attribute.",
   "keywords": [
-    "time",
+    "date",
     "leisurelink"
   ],
-  "main": "ll-time-input.html",
+  "main": "ll-date-input.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/LeisureLinkElements/ll-time-input",
+  "homepage": "https://github.com/LeisureLinkElements/ll-date-input",
   "ignore": [
     "/.*",
     "/test/",
@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "ll-time-picker": "LeisureLinkElements/ll-time-picker",
+    "ll-date-picker": "LeisureLinkElements/ll-date-picker",
     "moment": "~2.8.3"
   },
   "devDependencies": {
