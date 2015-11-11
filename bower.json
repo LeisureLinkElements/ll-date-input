@@ -18,8 +18,8 @@
     "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0",
     "ll-date-picker": "LeisureLinkElements/ll-date-picker",
+    "polymer": "Polymer/polymer#^1.0.0",
     "moment": "~2.8.3"
   },
   "devDependencies": {
