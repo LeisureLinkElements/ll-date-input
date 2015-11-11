@@ -1,6 +1,6 @@
 # ll-date-input
 
-A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its custom data-iso attribute.
+A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its custom data-data attribute.
 
 
 ## Dependencies
