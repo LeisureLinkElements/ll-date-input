@@ -4,7 +4,7 @@
   "authors": [
     "Charles Koehl <ckoehl@leisurelink.com>"
   ],
-  "description": "A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its custom data-data attribute.",
+  "description": "A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its data-data attribute.",
   "keywords": [
     "date",
     "leisurelink"
