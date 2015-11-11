@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>ll-property-information Demo</title>
+  <title>ll-date-input Demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../ll-date-input.html">
 </head>
@@ -11,13 +11,13 @@
 
 <p>An example of <code>&lt;ll-date-input&gt;</code></p>
 
-<label>Click input to set date:</label><input is="ll-date-input"/>
+<label>Click input to set date: </label><input is="ll-date-input"/>
 
 <p>When date is set via picker...</p>
 <ul>
-  <li>the input's value is set to standard 12-hour AM/PM format; eg: "6:30 PM"</li>
-  <li>the data-iso attribute is set to the ISO format; eg: "18:30:00"</li>
-  <li>the data-iso attribute is two-way bound, so you can bind it to a property of the Polymer element that contains this input; eg:<br><code>&lt;input is="ll-date-input" data-iso={{property.checkInDate}}/&gt</code>;
+  <li>the input's value is set to the "M/DD/YYY" format.</li>
+  <li>the data-data attribute is set to the "YYYY-MM-DD" format.</li>
+  <li>the data-data attribute is two-way bound, so you can bind it to a property of the Polymer element that contains this input; eg:<br><code>&lt;input is="ll-date-input" data-data={{property.checkInDate}}/&gt</code>;
   </li></ul>
 </body>
 </html>
