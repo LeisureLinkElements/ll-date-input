@@ -1,15 +1,15 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../ll-date-picker/ll-date-picker.html">
 
-<script src="../moment/min/moment.min.js"></script>
+<script src="../moment/min/moment.js"></script>
 <!--
-A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its custom data-iso attribute.
+A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its custom data-data attribute.
 
 Example:
 
     <ll-date-input></ll-date-input>
 
-A clickable, read-only text input that launches ll-date-picker to set its display and iso values.
+A clickable, read-only text input that launches ll-date-picker to set its display and data values.
 @demo
 -->
 <script>
@@ -22,11 +22,14 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
 
     properties: {
 
-      dataIso: {
+      /**
+       * Version of date string formatted for data rather than display.
+       */
+      dataData: {
         type: String,
         notify: true,
         reflectToAttribute: true,
-        observer: '_isoChanged'
+        observer: '_dataChanged'
       },
 
       /**
@@ -57,33 +60,43 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
     },
 
     /**
+     * Format for the display version of the date.
+     */
+    displayFormat: 'M/DD/YY',
+
+    /**
+     * Format for the data version of the date.
+     */
+    dataFormat: 'YYYY-MM-DD',
+
+    /**
      * Called by ll-date-picker after user clicks dialog confirmation button.
      *
-     * @param data {object} Contains display and iso strings. display string not used currently.
+     * @param data {object} Contains display and data strings. display string not used currently.
      */
     datePicked: function (data) {
-      this.dataIso = data.iso;
+      this.dataData = data.data;
     },
 
     _tap: function () {
-      this._datePicker.open(this, this._isoToDisplay(this.dataIso));
+      this._datePicker.open(this, this.dataData, this.displayFormat, this.dataFormat);
     },
 
-    _isoChanged: function (newVal) {
-      this.value = this._isoToDisplay(newVal);
+    _dataChanged: function (newVal) {
+      this.value = this._dataToDisplay(newVal);
     },
 
     /**
-     * Converts iso date string like '18:30:22' and converts to '6:30 PM'
+     * Converts data date string like '18:30:22' and converts to '6:30 PM'
      *
-     * @param isoStr {string}
+     * @param dataStr {string}
      * @returns {string}
      * @private
      */
-    _isoToDisplay: function (isoStr) {
-      var m = moment(isoStr, 'HH:mm:ss');
+    _dataToDisplay: function (dataStr) {
+      var m = moment(dataStr, this.dataFormat);
       if (m.isValid()) {
-        return m.format('h:mm A');
+        return m.format(this.displayFormat);
       }
     }
 
