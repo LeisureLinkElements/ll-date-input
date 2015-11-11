@@ -32,12 +32,12 @@
 
     describe('date formatting', function () {
 
-      it('should convert valid DATA date strings to "M/DD/YYYY" format', function () {
-        expect(myEl._dataToDisplay('2016-08-20')).to.eql('8/20/16');
+      it('should convert valid DATA date strings to "M/D/YY" format', function () {
+        expect(myEl._formatDate('2016-08-20', 'display')).to.eql('8/20/16');
       });
 
       it('should convert invalid DATA date string to undefined', function () {
-        expect(myEl._dataToDisplay('2016-13-20')).to.eql(undefined);
+        expect(myEl._formatDate('2016-13-20')).to.eql(undefined);
       });
 
     });
@@ -55,13 +55,13 @@
 
     describe('receiving new date from date picker', function () {
 
-      it('should receive new date data when date is picked from picker', function (done) {
+      it('should receive new date from date-picker', function (done) {
         var pickerDialog = document.getElementById('llDatePicker');
         if(pickerDialog) {
           pickerDialog.$.picker.addEventListener('date-changed', function(){
             pickerDialog._picked();
             expect(myEl.value).to.eql('8/20/16');
-            expect(myEl.dataData).to.eql('2016-08-20');
+            expect(myEl.dataData).to.eql('2016-08-20T00:00:00Z');
             done();
           });
           pickerDialog.$.picker.date = moment('2016-08-20','YYYY-MM-DD').toDate();
