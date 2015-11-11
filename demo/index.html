@@ -6,19 +6,56 @@
   <title>ll-date-input Demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../ll-date-input.html">
+  <style>
+    body {
+      margin:30px;
+    }
+    .example {
+      margin: 20px 0;
+    }
+    input {
+      width:200px;
+    }
+    label {
+      padding: 0 15px;
+    }
+    .data-display {
+      padding-left:15px;
+    }
+    .data-display::before {
+      content: "data-data attribute = "
+    }
+  </style>
 </head>
-<body style="margin: 30px;">
+<body>
 
 <p>An example of <code>&lt;ll-date-input&gt;</code></p>
 
-<label>Click input to set date: </label><input is="ll-date-input"/>
 
-<p>When date is set via picker...</p>
-<ul>
-  <li>the input's value is set to the "M/D/YY" format.</li>
-  <li>the data-data attribute is set to the "YYYY-MM-DD" format.</li>
-  <li>the data-data attribute is two-way bound, so you can bind it to a property of the Polymer element that contains this input; eg:<br><code>&lt;input is="ll-date-input" data-data={{property.checkInDate}}/&gt</code>;
-  </li></ul>
+<p><strong>Click any of the inputs below to set the date.</strong></p>
+<p>There is a "data-data" attribute on each input that you can bind to a
+  property of the Polymer element that contains the input; eg:<br><br><code>&lt;input is="ll-date-input"
+    data-data={{property.checkInDate}}/&gt</code></p>
+<div class="example">
+  <input is="ll-date-input"/><label>No formatting attributes.</label><span class="data-display"></span>
+</div>
 
+<div class="example">
+  <input is="ll-date-input" data-data-format="YYYY-MM-DD"/><label>"data-data-format" attribute set to
+  "YYYY-MM-YY".</label><span class="data-display"></span>
+</div>
+
+<div class="example">
+  <input is="ll-date-input" data-display-format="dddd, MMMM Do YYYY"/><label>"data-display-format" attribute set to
+  ""dddd, MMMM Do YYYY".</label><span class="data-display"></span>
+</div>
+
+<script>
+  window.addEventListener('ll-date-input-change', function (e) {
+    console.log(e);
+    e.target.parentElement.children[2].innerHTML = '"' + e.detail + '"';
+  });
+</script>
+</p>
 </body>
 </html>
