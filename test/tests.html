@@ -9,42 +9,42 @@
   <script src="../../web-component-tester/browser.js"></script>
 
   <!-- Step 1: import the element to test -->
-  <link rel="import" href="../ll-time-input.html">
+  <link rel="import" href="../ll-date-input.html">
 </head>
 <body>
 
+<script src="../moment/min/moment.js"></script>
 
 <script>
 
-  describe('ll-time-input', function () {
+  describe('ll-date-input', function () {
 
-    var myEl = new LLTimeInput();
+    var myEl = new LLDateInput();
 
     describe('initialization', function () {
 
-      it('should create an instance of ll-time-picker in document.body when attached', function () {
+      it('should create an instance of ll-date-picker in document.body when attached', function () {
         document.body.appendChild(myEl);
-        expect(document.getElementById('llTimePicker')).to.be.ok;
+        expect(document.getElementById('llDatePicker')).to.be.ok;
       });
 
     });
 
-    describe('time formatting', function () {
+    describe('date formatting', function () {
 
-      it('should convert valid ISO time strings to standard AM/PM format', function () {
-        expect(myEl._isoToDisplay('09:32:05')).to.eql('9:32 AM');
-        expect(myEl._isoToDisplay('14:56:00')).to.eql('2:56 PM');
+      it('should convert valid DATA date strings to "M/D/YY" format', function () {
+        expect(myEl._formatDate('2016-08-20', 'display')).to.eql('8/20/16');
       });
 
-      it('should convert invalid ISO time string to null', function () {
-        expect(myEl._isoToDisplay('09:87:05')).to.eql(undefined);
+      it('should convert invalid DATA date string to undefined', function () {
+        expect(myEl._formatDate('2016-13-20')).to.eql(undefined);
       });
 
     });
 
-    describe('launching time picker', function () {
+    describe('launching date picker', function () {
 
-      it('should launch time picker when tapped', function (done) {
+      it('should launch date picker when tapped', function (done) {
         document.body.addEventListener('iron-overlay-opened', function(){
           done();
         });
@@ -53,18 +53,18 @@
 
     });
 
-    describe('receiving new time from time picker', function () {
+    describe('receiving new date from date picker', function () {
 
-      it('should receive new time data when time is picked from picker', function (done) {
-        var pickerDialog = document.getElementById('llTimePicker');
+      it('should receive new date from date-picker', function (done) {
+        var pickerDialog = document.getElementById('llDatePicker');
         if(pickerDialog) {
-          pickerDialog.$.picker.addEventListener('time-changed', function(){
+          pickerDialog.$.picker.addEventListener('date-changed', function(){
             pickerDialog._picked();
-            expect(myEl.value).to.eql('7:26 AM');
-            expect(myEl.dataIso).to.eql('07:26:00');
+            expect(myEl.value).to.eql('8/20/16');
+            expect(myEl.dataData).to.eql('2016-08-20T00:00:00Z');
             done();
           });
-          pickerDialog.$.picker.time = '7:26 AM';
+          pickerDialog.$.picker.date = moment('2016-08-20','YYYY-MM-DD').toDate();
         }
       });
 

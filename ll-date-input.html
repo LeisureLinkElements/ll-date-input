@@ -1,0 +1,109 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ll-date-picker/ll-date-picker.html">
+
+<script src="../moment/min/moment.js"></script>
+<!--
+A clickable, read-only text input that launches ll-date-picker to set its value (for display) and its data-data attribute.
+
+Example:
+
+    <ll-date-input></ll-date-input>
+
+A clickable, read-only text input that launches ll-date-picker to set its display and data values.
+@demo
+-->
+<script>
+
+  LLDateInput = Polymer({
+
+    is: 'll-date-input',
+
+    extends: 'input',
+
+    properties: {
+
+      /**
+       * Version of date string formatted for data rather than display.
+       */
+      dataData: {
+        type: String,
+        notify: true,
+        reflectToAttribute: true,
+        observer: '_dataChanged'
+      },
+
+      /**
+       * The one instance of ll-date-picker created by this or another ll-date-input instance.
+       */
+      _datePicker: Object,
+
+      formats: {
+        type: Object,
+        value: function(){
+          return {};
+        }
+      }
+
+    },
+
+    created: function () {
+      this.readOnly = true;
+    },
+
+    ready: function() {
+      this.formats.data = this.dataset.dataFormat || 'YYYY-MM-DDTHH:mm:ss[Z]';
+      this.formats.display = this.dataset.displayFormat || 'M/D/YY';
+    },
+
+    /**
+     * Create one instance of ll-date-picker and attach to document body.
+     * Does not create one if another ll-date-input has already done so.
+     */
+    attached: function () {
+      this._datePicker = document.getElementById('llDatePicker');
+      if (!this._datePicker) {
+        this._datePicker = new LLDatePicker();
+        document.body.appendChild(this._datePicker);
+      }
+    },
+
+    listeners: {
+      'tap': '_tap'
+    },
+
+    /**
+     * Called by ll-date-picker after user clicks dialog confirmation button.
+     *
+     * @param data {object} Contains display and data strings. display string not used currently.
+     */
+    datePicked: function (data) {
+      this.dataData = this._formatDate(data.data, 'data');
+    },
+
+    _tap: function () {
+      this._datePicker.open(this, this.dataData, this.formats.display, this.formats.data);
+    },
+
+    _dataChanged: function (newVal) {
+      this.value = this._formatDate(newVal, 'display');
+      this.fire('ll-date-input-change', newVal);
+    },
+
+    /**
+     * Converts data date string like '18:30:22' and converts to '6:30 PM'
+     *
+     * @param dataStr {string}
+     * @param formatType {string} Either "data" or "display"
+     * @returns {string}
+     * @private
+     */
+    _formatDate: function (dataStr, formatType) {
+      var m = moment(dataStr, this.formats['data']);
+      if (m.isValid()) {
+        return m.format(this.formats[formatType]);
+      }
+    }
+
+  });
+
+</script>
