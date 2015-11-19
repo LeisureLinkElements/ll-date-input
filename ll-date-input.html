@@ -53,6 +53,7 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
     ready: function() {
       this.formats.data = this.dataset.dataFormat || 'YYYY-MM-DDTHH:mm:ss[Z]';
       this.formats.display = this.dataset.displayFormat || 'M/D/YY';
+      this._initDisplay();
     },
 
     /**
@@ -102,6 +103,10 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
       if (m.isValid()) {
         return m.format(this.formats[formatType]);
       }
+    },
+
+    _initDisplay: function() {
+      this.value = this._formatDate(this.dataData, 'display');
     }
 
   });
