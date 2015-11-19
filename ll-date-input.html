@@ -102,6 +102,8 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
       var m = moment(dataStr, this.formats['data']);
       if (m.isValid()) {
         return m.format(this.formats[formatType]);
+      } else {
+        return '';
       }
     },
 
