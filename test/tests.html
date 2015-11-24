@@ -31,11 +31,11 @@
     describe('date formatting', function () {
 
       it('should convert valid DATA date strings to "M/D/YY" format', function () {
-        expect(myEl._formatDate('2016-08-20', 'display')).to.eql('8/20/16');
+        expect(myEl._getFormattedDate('2016-08-20', 'display')).to.eql('8/20/16');
       });
 
       it('should convert invalid DATA date string to empty string', function () {
-        expect(myEl._formatDate('2016-13-20')).to.eql('');
+        expect(myEl._getFormattedDate('2016-13-20')).to.eql('');
       });
 
       it('should display date correctly when the DATA value is set programatically', function () {
