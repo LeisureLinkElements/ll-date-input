@@ -51,6 +51,7 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
     },
 
     ready: function () {
+      this.style.cursor = 'pointer';
       this.formats.data = this.dataset.dataFormat || 'YYYY-MM-DDTHH:mm:ss[Z]';
       this.formats.display = this.dataset.displayFormat || 'M/D/YY';
       this._format();
