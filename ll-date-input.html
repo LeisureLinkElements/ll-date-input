@@ -39,7 +39,7 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
 
       formats: {
         type: Object,
-        value: function(){
+        value: function () {
           return {};
         }
       }
@@ -50,9 +50,10 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
       this.readOnly = true;
     },
 
-    ready: function() {
+    ready: function () {
       this.formats.data = this.dataset.dataFormat || 'YYYY-MM-DDTHH:mm:ss[Z]';
       this.formats.display = this.dataset.displayFormat || 'M/D/YY';
+      this._format();
     },
 
     /**
@@ -77,31 +78,42 @@ A clickable, read-only text input that launches ll-date-picker to set its displa
      * @param data {object} Contains display and data strings. display string not used currently.
      */
     datePicked: function (data) {
-      this.dataData = this._formatDate(data.data, 'data');
+      this.dataData = this._getFormattedDate(data.data, 'data');
     },
 
     _tap: function () {
       this._datePicker.open(this, this.dataData, this.formats.display, this.formats.data);
     },
 
-    _dataChanged: function (newVal) {
-      this.value = this._formatDate(newVal, 'display');
-      this.fire('ll-date-input-change', newVal);
+    _dataChanged: function () {
+      this._format();
+      this.fire('ll-date-input-change', this.dataData);
     },
 
     /**
-     * Converts data date string like '18:30:22' and converts to '6:30 PM'
+     * Convert a date string to either the data or display format.
      *
      * @param dataStr {string}
      * @param formatType {string} Either "data" or "display"
      * @returns {string}
      * @private
      */
-    _formatDate: function (dataStr, formatType) {
+    _getFormattedDate: function (dataStr, formatType) {
       var m = moment(dataStr, this.formats['data']);
       if (m.isValid()) {
         return m.format(this.formats[formatType]);
+      } else {
+        return '';
       }
+    },
+
+    /**
+     * Format both data and display values.
+     * @private
+     */
+    _format: function () {
+      this.dataData = this._getFormattedDate(this.dataData, 'data');
+      this.value = this._getFormattedDate(this.dataData, 'display');
     }
 
   });
